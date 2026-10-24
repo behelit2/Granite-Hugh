@@ -3,6 +3,8 @@
 # Granite-Hugh
 HUGH is a terminal-based AI assistant powered by IBM Granite, running locally on your computer. Chat, get coding help, analyze documents and scanned text, and research the web with source citations... all from one simple interface.
 
+I designed Hugh to meet the needs of anyone who desires local AI model ownership, has privacy concerns, and/or prefers the transparency of open source. Hugh is not a general purpose chatbot and is geared toward Linux terminal users. It includes agentic tools, but these tools are non-destructive and highly bounded. These tools are aimed at giving Hugh read-only access to files and various web search related functions. In that sense, Hugh is more like the Enterprise Ship's Computer than a traditional agent. It can answer questions, give advice, do analysis, and collect information. But it is up to you to be competent enough to do the real work.
+
 🚀 Installation & Setup
 
 Follow these steps to set up and run Hugh.
