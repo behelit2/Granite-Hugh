@@ -9,20 +9,18 @@ Follow these steps to set up and run Hugh.
 
 # FEDORA LINUX
 
-Prerequisites & Dependencies
+# Prerequisites & Dependencies
 
 Before you start, make sure you have the recommended NVIDIA GPU or TPU with 16GB of VRAM. It can be used experimentally with 12GB of VRAM.
 
-Step 1: Install System Packages (Fedora)
+# Step 1: Install System Packages (Fedora)
 
 Run the following command in your terminal to install the necessary build tools and system dependencies:
 
 sudo dnf install -y python3.12 python3.12-devel gcc gcc-c++ make redhat-rpm-config pkgconf-pkg-config libcurl-devel openssl-devel ca-certificates tesseract tesseract-langpack-eng
 
 
-Environment Setup
-
-Step 2: Create Virtual Environment & Install Python Packages
+# Step 2: Create Virtual Environment & Install Python Packages
 
 Run these commands sequentially in your terminal to set up the Python environment and dependencies:
 
@@ -36,9 +34,7 @@ python -m pip install --upgrade torch --index-url https://download.pytorch.org/w
 python -m pip install --upgrade transformers accelerate bitsandbytes safetensors huggingface_hub sentencepiece protobuf prompt_toolkit ddgs pycurl trafilatura beautifulsoup4 lxml pypdf defusedxml striprtf charset-normalizer Pillow PyMuPDF "lm-format-enforcer==0.11.3"
 
 
-Model & Configuration Setup
-
-Step 3: Download the Model
+# Step 3: Download the Model
 
 Create the target directory and download the model files using Hugging Face CLI:
 
@@ -47,7 +43,7 @@ mkdir -p "$HOME/models/granite-4.2-8b" && hf download ibm-granite/granite-4.2-8b
 
 Note: Wait for the download process to complete before proceeding.
 
-Step 4: Add Application Files
+# Step 4: Add Application Files
 
 Move the following supplied configuration and code files into the model directory ($HOME/models/granite-4.2-8b):
 
@@ -57,9 +53,7 @@ hugh_granite.py
 
 Ensure the contents of both files remain unchanged (including the final overrides in granite.env).
 
-Shortcut Setup & Launch
-
-Step 5: Create Launcher Script
+# Step 5: Create Launcher Script
 
 Create a helper shell script in your home directory to easily launch the application:
 
@@ -71,7 +65,7 @@ EOF
 chmod +x ~/hugh.sh
 
 
-Step 6: Start Hugh
+# Step 6: Start Hugh
 
 To launch Hugh, run the launcher script from your terminal:
 
