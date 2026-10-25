@@ -1,4 +1,5 @@
 <img width="2048" height="1536" alt="image" src="https://github.com/user-attachments/assets/1b848e2f-76aa-4dbd-bc4a-d7887fc601c8" />
+<img width="1312" height="1199" alt="image" src="https://github.com/user-attachments/assets/f50140dc-31fd-40cf-91d0-e975dcf2e253" />
 
 # Granite-Hugh
 HUGH is a terminal-based AI assistant powered by IBM Granite, running locally on your computer. Chat, get coding help, analyze documents and scanned text, and research the web with source citations... all from one simple interface.
