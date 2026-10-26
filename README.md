@@ -30,17 +30,17 @@ Run these commands sequentially in your terminal to set up the Python environmen
 
 # Create and activate virtual environment, then upgrade base packaging tools
 ```
-python3.12 -m venv "$HOME/.venvs/hugh" && source "$HOME/.venvs/hugh/bin/activate" && python -m pip install --upgrade pip setuptools wheel
+python3.12 -m venv "$HOME/.venvs/hugh" && source "$HOME/.venvs/hugh/bin/activate" && python3 -m pip install --upgrade pip setuptools wheel
 ```
 
 # Install PyTorch (CUDA 12.8 wheel)
 ```
-python -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu128
+python3 -m pip install --upgrade torch --index-url https://download.pytorch.org/whl/cu128
 ```
 
 # Install required Python packages
 ```
-python -m pip install --upgrade transformers accelerate bitsandbytes safetensors huggingface_hub sentencepiece protobuf prompt_toolkit ddgs pycurl trafilatura beautifulsoup4 lxml pypdf defusedxml striprtf charset-normalizer Pillow PyMuPDF "lm-format-enforcer==0.11.3"
+python3 -m pip install --upgrade transformers accelerate bitsandbytes safetensors huggingface_hub sentencepiece protobuf prompt_toolkit ddgs pycurl trafilatura beautifulsoup4 lxml pypdf defusedxml striprtf charset-normalizer Pillow PyMuPDF "lm-format-enforcer==0.11.3"
 ```
 
 # Step 3: Download the Model
@@ -67,7 +67,7 @@ Ensure the contents of both files remain unchanged (including the final override
 Create a helper shell script in your home directory to easily launch the application:
 ```
 cat << 'EOF' > ~/hugh.sh
-cd "$HOME/models/granite-4.2-8b" && source "$HOME/.venvs/hugh/bin/activate" && source granite.env && python hugh_granite.py
+cd "$HOME/models/granite-4.2-8b" && source "$HOME/.venvs/hugh/bin/activate" && source granite.env && python3 hugh_granite.py
 EOF
 ```
 
