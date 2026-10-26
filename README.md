@@ -88,3 +88,5 @@ To launch Hugh, run the launcher script from your terminal:
 Check here for a wrapper that allows Hugh to talk using espeak-ng:
 
 https://github.com/behelit2/Hugh-Speak
+
+*NOTE - This feature is still buggy and the Granite Hugh interface will work slightly differently due to how the wrapper works. CTRL+C will not remove previous turns and will exit. And it will not remember your normal prompt history, starting a fresh history each time. For full functionality, don't use voice synthesis.
