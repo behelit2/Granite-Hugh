@@ -82,3 +82,9 @@ To launch Hugh, run the launcher script from your terminal:
 ```
 ./hugh.sh
 ```
+
+# OPTIONAL VOICE
+
+Check here for a wrapper that allows Hugh to talk using espeak-ng:
+
+https://github.com/behelit2/Hugh-Speak
