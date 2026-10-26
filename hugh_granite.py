@@ -9891,14 +9891,14 @@ def read_input(
     editor: PromptEditor, config: Config
 ) -> str:
     if editor.session is None:
-        return input("Human Input: ")
+        return input("\n===\nHuman Input: ")
     toolbar = (
         " Enter: submit | Ctrl+O: newline | Up/Down: history | "
         "Ctrl+R: search | Ctrl+C: remove/exit "
         if config.PROMPT_BOTTOM_TOOLBAR else None
     )
     return editor.session.prompt(
-        "Human Input: ", bottom_toolbar=toolbar
+        "\n===\nHuman Input: ", bottom_toolbar=toolbar
     )
 
 
@@ -9931,7 +9931,7 @@ def redraw(
             "display_content",
             message.get("content", ""),
         )
-        print(f"{label}: {content}\n")
+        print(f"===\n{label}: {content}\n")
     if len(messages) == 1:
         print("[No conversation messages.]\n")
     if notice:
@@ -11795,7 +11795,7 @@ def chat_main(config: Config) -> None:
                         engine, config, request, prepared,
                         attachments, python_artifacts, messages, log,
                     )
-                    print("Hugh: " + reply)
+                    print("\n===\nHugh: " + reply)
                 elif request.web_mode in EVIDENCE_MODES:
                     if (
                         request.web_mode in {
@@ -11834,7 +11834,7 @@ def chat_main(config: Config) -> None:
                         engine, session,
                         prepared, fitted,
                     )
-                    print("Hugh: " + reply)
+                    print("\n===\nHugh: " + reply)
 
                     if not session.is_cached:
                         snapshot_id, notice = research.capture(
@@ -11867,7 +11867,7 @@ def chat_main(config: Config) -> None:
                         f"output ceiling: {maximum:,}]"
                     )
                     print(
-                        "Hugh: ", end="", flush=True
+                        "\n===\nHugh: ", end="", flush=True
                     )
                     result = engine.generate(
                         fitted,
