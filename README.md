@@ -89,4 +89,4 @@ Check here for a wrapper that allows Hugh to talk using espeak-ng:
 
 https://github.com/behelit2/Hugh-Speak
 
-*NOTE - Hugh Speak is experimental and some Granite Hugh features might not work as expected. The main difference is that it doesn't share the same prompt history due to its client based design.
+*NOTE - Hugh Speak is experimental. The main difference is that it doesn't share the same prompt history due to its client based design.
