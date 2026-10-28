@@ -4567,8 +4567,11 @@ def _resolve_research_request_v3(
             not config.WEB_CACHE_ENABLED
             or resolved.file_paths
             or previous is None
-            or not looks_like_research_followup(
-                resolved.instruction
+            or not (
+                looks_like_research_followup(resolved.instruction)
+                or _hugh_url_document_followup_v2(
+                    resolved.instruction, previous
+                )
             )
         ):
             return resolved, None, None
@@ -12765,6 +12768,96 @@ def _31_all_current_sources(
     return sources
 
 
+# HUGH_URL_SUMMARY_EVIDENCE_FIX_V2
+def _31_card_source_relevant(source, session):
+    """
+    Use document authorization for URL-only source eligibility.
+
+    Other source scopes retain the existing lexical relevance filter.
+    Passage ranking, provenance checks, and support review are unchanged.
+    """
+    request = session.request
+
+    if session.source_scope != MODE_URL:
+        return _31_source_relevant(source, request)
+
+    if (
+        request.web_mode not in {MODE_URL, MODE_CACHED}
+        or not request.web_url
+        or source.get("kind") != "page"
+    ):
+        return False
+
+    identifier = str(source.get("id", ""))
+    if not re.fullmatch(
+        r"P[1-9]\d{0,11}:C[1-9]\d{0,11}",
+        identifier,
+    ):
+        return False
+
+    page_id = identifier.split(":", 1)[0]
+    delivered = session.evidence.chunks.get(identifier)
+    document = session.pages.get(page_id)
+
+    if (
+        document is None
+        or delivered is None
+        or delivered.get("page_id") != page_id
+    ):
+        return False
+
+    # current_web_records() supplies the owning document's final URL.
+    # Reject source records carrying inconsistent page metadata.
+    if canonical_url(str(source.get("url", ""))) != canonical_url(
+        document.final_url
+    ):
+        return False
+
+    authorized = canonical_url(request.web_url)
+
+    # requested_url handles ordinary redirects. page_urls also retains
+    # application-recorded redirect and content-deduplication aliases.
+    return (
+        session.page_urls.get(authorized) == page_id
+        or authorized in {
+            canonical_url(document.requested_url),
+            canonical_url(document.final_url),
+        }
+    )
+
+
+def _hugh_url_document_followup_v2(text, previous):
+    """
+    Recognize bounded references to the last explicitly supplied document.
+
+    Called only from the ordinary-turn cached-routing branch.
+    This function does not authorize network access.
+    """
+    if (
+        previous is None
+        or previous.mode != MODE_URL
+        or not isinstance(text, str)
+        or "```" in text
+    ):
+        return False
+
+    normalized = normalize_space(text)
+
+    return bool(re.fullmatch(
+        r"(?:please\s+)?(?:"
+        r"what\s+(?:does|did)\s+the\s+(?:page|document|profile)\s+"
+        r"(?:talk\s+about|say|discuss|describe|cover|contain|show)"
+        r"|(?:summarize|summarise|describe|explain)\s+"
+        r"the\s+(?:page|document|profile)"
+        r")\s*[?!.]*",
+        normalized,
+        flags=re.I,
+    ))
+
+
+
+
+
 def _31_card_candidates(
     session, prepared
 ):
@@ -12792,9 +12885,7 @@ def _31_card_candidates(
             continue
         if (
             external
-            and not _31_source_relevant(
-                source, session.request
-            )
+            and not _31_card_source_relevant(source, session)
         ):
             continue
 
